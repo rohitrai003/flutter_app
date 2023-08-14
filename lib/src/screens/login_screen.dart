@@ -12,14 +12,42 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign In'),
+        backgroundColor: Colors.green.shade400,
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => _login(context),
-          child: const Text('Log In'),
+      backgroundColor: Colors.green.shade200,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  enabled: true,
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade600,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Colors.blueAccent,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+
+// ElevatedButton(
+//             onPressed: () => _login(context),
+//             child: const Text('Log In'),
+//           ),
