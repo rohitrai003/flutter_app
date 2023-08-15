@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../features/login_page.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
-  void _login(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isLoggedIn', true);
-    Navigator.pushReplacementNamed(context, '/home');
-  }
+class SignUp extends StatelessWidget {
+  SignUp({super.key});
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-
+  TextEditingController username = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +38,25 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 20),
               const Align(
                   alignment: Alignment.centerLeft,
+                  child: Text('Username',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          shadows: [
+                            Shadow(
+                                color: Colors.grey,
+                                offset: Offset(1, 1),
+                                blurRadius: 2)
+                          ]))),
+              const SizedBox(
+                height: 10,
+              ),
+              textController(username, 'Username', false, TextInputType.name),
+              const SizedBox(
+                height: 15,
+              ),
+              const Align(
+                  alignment: Alignment.centerLeft,
                   child: Text('Email',
                       style: TextStyle(
                           fontSize: 20,
@@ -57,7 +70,7 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 10),
               textController(email, 'Email', false,
                   TextInputType.emailAddress), // Email textfield
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               const Align(
                   alignment: Alignment.centerLeft,
                   child: Text('Password',
@@ -74,10 +87,10 @@ class LoginScreen extends StatelessWidget {
               textController(password, 'Password', true,
                   TextInputType.visiblePassword), // Password textfield
               const SizedBox(height: 30),
+
               ElevatedButton(
                 onPressed: () {
                   if (email.text.isNotEmpty && password.text.isNotEmpty) {
-                    _login(context);
                   } else {
                     errorLogin(context);
                   }
@@ -91,23 +104,23 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
               const Align(
                 alignment: Alignment.center,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                  child: Text('----------More Login Option----------'),
+                  child: Text('----------More Signin Option----------'),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     otherLoginOption(Image.asset(
                       'assets/images/google.png',
-                      scale: 15,
+                      scale: 20,
                     )),
                     otherLoginOption(
                       Image.asset(
@@ -120,17 +133,20 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 15.0),
-                child: Align(
-                    alignment: Alignment.center,
-                    child: Text('Don\'t Have an account ? ')),
+              const SizedBox(
+                height: 10,
               ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('/signup');
-                  },
-                  child: const Text('Create One'))
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Already have an account ? '),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Login here')),
+                ],
+              ),
             ],
           ),
         ),

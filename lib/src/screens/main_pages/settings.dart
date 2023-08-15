@@ -15,7 +15,7 @@ class SettingsPage extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Do You Want To Logout ? '),
+          title: const Text('Do you want to logout ? '),
           actions: [
             TextButton(
                 onPressed: () => _logout(context), child: const Text('Yes')),
