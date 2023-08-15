@@ -49,6 +49,10 @@ class ContactPage extends StatelessWidget {
           ),
           Container(color: Colors.white),
         ]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
