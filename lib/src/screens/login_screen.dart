@@ -10,6 +10,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade400,
@@ -19,25 +21,64 @@ class LoginScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Email',
-                  enabled: true,
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade600,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Colors.blueAccent,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
+              Container(
+                child: const Text(
+                  'WELCOME',
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                            color: Colors.grey,
+                            offset: Offset(1, 1),
+                            blurRadius: 2)
+                      ]),
                 ),
               ),
+              const SizedBox(height: 20),
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('Email',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          shadows: [
+                            Shadow(
+                                color: Colors.grey,
+                                offset: Offset(1, 1),
+                                blurRadius: 2)
+                          ]))),
+              const SizedBox(height: 10),
+              textController(email, 'Email', false), // Email textfield
+              const SizedBox(height: 20),
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('Password',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          shadows: [
+                            Shadow(
+                                color: Colors.grey,
+                                offset: Offset(1, 1),
+                                blurRadius: 2)
+                          ]))),
+              const SizedBox(height: 10),
+              textController(password, 'Password', true), // Password textfield
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => _login(context),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green.shade400,
+                    minimumSize: Size(MediaQuery.of(context).size.width, 50)),
+                child: const Text(
+                  'Sign In',
+                  style: TextStyle(fontSize: 20),
+                ),
+              )
             ],
           ),
         ),
@@ -46,6 +87,28 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
+//Email, password textfield
+textController(
+    TextEditingController controller, String hintText, bool password) {
+  return TextField(
+    controller: controller,
+    obscureText: password,
+    style: const TextStyle(color: Colors.black),
+    decoration: InputDecoration(
+      hintText: hintText,
+      enabled: true,
+      filled: true,
+      fillColor: Colors.white,
+      hintStyle: TextStyle(
+        color: Colors.grey.shade600,
+      ),
+      border: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+    ),
+  );
+}
 
 // ElevatedButton(
 //             onPressed: () => _login(context),
