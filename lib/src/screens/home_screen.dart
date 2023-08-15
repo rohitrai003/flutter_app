@@ -60,6 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.logout),
           ),
         ],
+        bottom: Tab(
+          child: Text('Online'),
+        ),
+        bottomOpacity: 0.8,
       ),
       body: pages[index],
       bottomNavigationBar: BottomNavigationBar(
@@ -74,11 +78,10 @@ class _HomeScreenState extends State<HomeScreen> {
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.history), label: 'History'),
+            BottomNavigationBarItem(icon: Icon(Icons.dialpad), label: 'Calls'),
+            BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Contacts'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.dialpad), label: 'History'),
-            BottomNavigationBarItem(icon: Icon(Icons.group), label: 'History'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings), label: 'History'),
+                icon: Icon(Icons.settings), label: 'Settings'),
           ]),
     );
   }

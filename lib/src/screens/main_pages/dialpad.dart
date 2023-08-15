@@ -33,7 +33,7 @@ class _DialPadPageState extends State<DialPadPage> {
         child: Column(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 0.25,
+          height: MediaQuery.of(context).size.height * 0.20,
           child: Center(
             child: Text(
               '$fillText',
