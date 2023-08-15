@@ -8,15 +8,14 @@ class LoginScreen extends StatelessWidget {
     Navigator.pushReplacementNamed(context, '/home');
   }
 
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController email = TextEditingController();
-    TextEditingController password = TextEditingController();
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green.shade400,
-      ),
       backgroundColor: Colors.green.shade200,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
@@ -24,8 +23,9 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child: const Text(
+              const Align(
+                alignment: Alignment.center,
+                child: Text(
                   'WELCOME',
                   style: TextStyle(
                       fontSize: 40,
@@ -52,7 +52,8 @@ class LoginScreen extends StatelessWidget {
                                 blurRadius: 2)
                           ]))),
               const SizedBox(height: 10),
-              textController(email, 'Email', false), // Email textfield
+              textController(email, 'Email', false,
+                  TextInputType.emailAddress), // Email textfield
               const SizedBox(height: 20),
               const Align(
                   alignment: Alignment.centerLeft,
@@ -67,16 +68,48 @@ class LoginScreen extends StatelessWidget {
                                 blurRadius: 2)
                           ]))),
               const SizedBox(height: 10),
-              textController(password, 'Password', true), // Password textfield
-              const SizedBox(height: 20),
+              textController(password, 'Password', true,
+                  TextInputType.visiblePassword), // Password textfield
+              const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () => _login(context),
+                onPressed: () {
+                  if (email.text.isNotEmpty && password.text.isNotEmpty) {
+                    _login(context);
+                  } else {
+                    errorLogin(context);
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green.shade400,
                     minimumSize: Size(MediaQuery.of(context).size.width, 50)),
                 child: const Text(
                   'Sign In',
                   style: TextStyle(fontSize: 20),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  child: Text('----------More Login Option----------'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    otherLoginOption(Image.asset('assets/images/google.png')),
+                    otherLoginOption(
+                      Image.asset(
+                        'assets/images/facebook.png',
+                      ),
+                    ),
+                    otherLoginOption(Image.asset('assets/images/twitter.png')),
+                  ],
                 ),
               )
             ],
@@ -88,12 +121,13 @@ class LoginScreen extends StatelessWidget {
 }
 
 //Email, password textfield
-textController(
-    TextEditingController controller, String hintText, bool password) {
+textController(TextEditingController controller, String hintText, bool password,
+    TextInputType keyboardType) {
   return TextField(
     controller: controller,
     obscureText: password,
     style: const TextStyle(color: Colors.black),
+    keyboardType: keyboardType,
     decoration: InputDecoration(
       hintText: hintText,
       enabled: true,
@@ -110,7 +144,39 @@ textController(
   );
 }
 
-// ElevatedButton(
-//             onPressed: () => _login(context),
-//             child: const Text('Log In'),
-//           ),
+otherLoginOption(Image image) {
+  return Container(
+      height: 60,
+      width: 65,
+      decoration: BoxDecoration(
+          color: Colors.green.shade200,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: const [
+            BoxShadow(offset: Offset(1, 2), blurRadius: 3, color: Colors.grey)
+          ]),
+      child: Container(
+        height: 40,
+        width: 40,
+        child: image,
+      ));
+}
+
+errorLogin(context) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Wrong Email or Password'),
+        icon: const Icon(Icons.error_outline),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Back'),
+          )
+        ],
+      );
+    },
+  );
+}
